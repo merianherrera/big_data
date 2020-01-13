@@ -15,12 +15,25 @@ Escoje una de los proyectos / retos que llegaron a la lista que hicimos en clase
 
 ### Analisis
 
- - Cuales son los retos para analisis en terminos de metodologia y capacidad de computo.
- - Que tipo de soluciones necesitas para solucionarlo (puede ser conceptual, no necesariamente necesitas buscar la tecnologia existente para resolverlo).
+ **- Cuales son los retos para analisis en terminos de metodologia y capacidad de computo.**
+ 
+ En mi grupo nuestro compañero Brian Duran, nos hablo sobre el poryecto en el cual trabaja actualmente, el cual tiene como proposito procesar datos sobre trading (Marcas Registradas) a nivel de Estados Unidos y tambien a nivel mundial.
+ Desde mi punto de vista este proyecto presenta varios retos, los cuales voy a listar mas adelante, pero el que considero como mayor reto, es la cantidad de informacion que se debe procesar diariamente, ya que son volumenes muy grandes de datos y se requiere un poder computacional muy grande para mantener la base de datos al dia. Otros retos que considero reelevantes son:
+ 
+ * Nuestro compañero menciono que utilizan una base de datos relacional, por lo cual considero que la optimizacion de los datos y normalizacion de la misma es una tarea que se debe tener presente en cada tarea que se realiza.
+ * Los datos se extraen de diferentes fuentes, por lo que se deben tener tareas para procesar y eliminar errores que puedan existir en los datos provenientes de cada una de ellas. Tambien, al manejarse datos de diferentes paises incluso continentes, se debe tener en cuenta los difentes estandares de cada uno antes de procesar la informacion y guardarla.
+ 
+ **- Que tipo de soluciones necesitas para solucionarlo (puede ser conceptual, no necesariamente necesitas buscar la tecnologia existente para resolverlo).**
+ 
+ * Definir previamente un estandar para trabajar con los datos, inclusive tener tareas automaticas encargadas de procesar y dar el formato necesario dependiendo de la fuente de los mismos (pais, lugar, institucion..).
+ * Tener cron jobs (Tareas programadas) que se encargen de estar revisando las fuentes y procesando los datos conforme van llegando.
+ * Tener una arquitectura escalable en los servidores, que pueda brindar el poder computacional necesario segun la demanda del mismo.
 
 ### Infraestructura
 
- - Cuales son los retos infraestructurales para trabajar con este tipo de datos
- - Que tipo de soluciones necesitas para solucionarlo (puede ser conceptual, no necesariamente necesitas buscar la tecnologia existente para resolverlo).
- - Crea un diagrama de la solución como lo piensas (entrega la imagen o incluyela como imagen en el Rmarkdown).
+ **- Cuales son los retos infraestructurales para trabajar con este tipo de datos**
+ 
+ **- Que tipo de soluciones necesitas para solucionarlo (puede ser conceptual, no necesariamente necesitas buscar la tecnologia existente para resolverlo).**
+ 
+**- Crea un diagrama de la solución como lo piensas (entrega la imagen o incluyela como imagen en el Rmarkdown).**
  
