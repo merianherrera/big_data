@@ -4,7 +4,7 @@ author: "Curso Big Data TEC"
 date: "20191214"
 output: html_document
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
 ## Tarea sesión 3
@@ -13,11 +13,15 @@ editor_options:
 Levanta una instancia local de Spark ([siguiendo los pasos aqui]()) y ejecuta los siguientes pasos. Puedes usar el marco de codigo (el *chunk*) para incluir tu respuesta y enviar la tarea finalizada.
 
 ```{r}
-library(SparkR)
+# library(SparkR)
+library(sparklyr)
+library(nycflights13)
+library(dplyr)
 ```
 
 ```{r}
-sparkR.session(master = "local[*]", sparkConfig = list(spark.driver.memory = "2g"))
+# sparkR.session(master = "local[*]", sparkConfig = list(spark.driver.memory = "1g"))
+sc <- spark_connect(master = "local")
 ```
 
 
@@ -27,30 +31,90 @@ sparkR.session(master = "local[*]", sparkConfig = list(spark.driver.memory = "2g
 Copia los datos 
 
 ```{r}
-library(nycflights13)
-vuelos <- # aqui el codigo para copiar nycflights13::flights a Spark
-aerolineas <- # aqui el codigo para copiar nycflights13::airlines a Spark
+
+# aqui el codigo para copiar nycflights13::flights a Spark
+# vuelos <- as.DataFrame(flights)
+vuelos <- copy_to(sc, nycflights13::flights, "flights")
+
+# aqui el codigo para copiar nycflights13::airlines a Spark
+# aerolineas <- as.DataFrame(airlines)
+aerolineas <- copy_to(sc, nycflights13::airlines, "airlines")
+
 ```
+
+```{r}
+head(vuelos)
+# printSchema(vuelos)
+```
+
+```{r}
+head(aerolineas)
+# printSchema(aerolineas)
+```
+
+
 
 Pregunta: 
 
 > Cuandos RDD creó el paso arriba?
 
+Segun estuve investigando los RDD son el objeto en el cual estan basados los dataframes de Spark, y este crea un RDD por cada fila del dataframe, por lo cual si contamos las filas vamos a tener la cantidad de RDD creados.
+
+```{r}
+count(vuelos)
+```
+
+```{r}
+count(aerolineas)
+```
+
+En nuestro caso tenemos 336776 filas para vuelos y 16 para aerolineas.
+
 ### Ejecuta un join sobre spark
 
 ```{r}
 # join (sobre spark) de vuelos y aerolineas
+
+datos_completos = left_join(vuelos, aerolineas, by = 'carrier')
+datos_completos
+```
+
+```{r}
+src_tbls(sc)
 ```
 
 ### Ejecuta un group_by sobre spark
 
 ```{r}
 # group_by por aerolinea reportando promedio de lo retrasos
+
+datos_completos %>%
+group_by(name) %>%
+summarize(promedio_retrasos = round(mean(dep_delay, na.rm = TRUE), 2))
 ```
 
 pregunta:
 
 > Que pasa cuando cierras la sesión y la vuelves a abrir? 
+
+```{r}
+# Cerrar sesion de Spark
+spark_disconnect(sc) 
+
+# Iniciar de nuevo la sesion de Spark
+sc <- spark_connect(master = "local")
+```
+
+
+Cuando se cierra la sesion de Spark y se vuelve a abrir, R studio crea una nueva sesion, y si se intenta ejecutar uno de los chunks anteriores, se muetra un error que dice que la sesion de R ha sido terminada.
+
+![Error que muestra RStudio](r-session-error.PNG){width=95%}
+
+
 > estan los resultados que tenias antes aun en tu instancia de Spark? 
+
+No, al ser una nueva instancia los resultados y datos ejecutados en los pasos anteriores no estan.
+
 > Explica lo que observas.
 
+Segun  lo observado, puedo deducir que Spark trabaja por sesiones y que de alguna manera necesitamos guardar o hacer commit de las modificaciones a los datos que hemos hecho para que los datos no se pierdan al cerrar o terminar una sesion.

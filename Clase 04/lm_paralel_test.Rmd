@@ -1,0 +1,41 @@
+---
+title: "Untitled"
+author: "Merian Herrera"
+date: "13/1/2020"
+output: html_document
+---
+
+```{r}
+library(parallel)
+library(MASS)
+
+iris
+
+system.time(
+  lm_species <- lm(factor(Species) ~ Sepal.Width, data = iris)
+)
+lm_species
+
+
+fx <-  function() {
+  return(
+    lm(factor(Species) ~ Sepal.Width, data = iris)
+    )
+}
+
+numCores <- parallel::detectCores()
+numCores
+
+# Aplicacion Single core 
+system.time(
+  results <- lapply(starts, fx)
+)
+
+# Aplicación Multicore 
+system.time(
+  results <- parallel::mclapply(starts, fx, mc.cores = numCores)
+)
+
+
+```
+
