@@ -11,7 +11,7 @@ editor_options:
 **Cédula:** 207180364 <br>
 **Fecha:** "2019/12/14"
 
-### Descripción tarea
+### Descripción de la tarea
 
 Levanta una instancia local de Spark ([siguiendo los pasos aqui]()) y ejecuta los siguientes pasos. Puedes usar el marco de codigo (el *chunk*) para incluir tu respuesta y enviar la tarea finalizada.
 

@@ -1,34 +1,101 @@
 ---
-title: "Tarea 2"
+title: "Tarea sesión 2"
 author: "Curso Big Data TEC"
-date: "20191214"
 output: html_document
 editor_options: 
-  chunk_output_type: console
+chunk_output_type: inline
 ---
 
-# Tarea sesión 2
+**Estudiante:** Merian Herrera Fuentes <br>
+**Email:** meryann68@gmail.com <br>
+**Cédula:** 207180364 <br>
+**Fecha:** "2019/12/14"
 
-## Descripción tarea
+## Descripción de la tarea
+
 Lleva los datos ejemplo a una base de datos NoSQL de uno de los siguientes tipos (cualquier derivado comercial vale).
 
  - Key-Value Store
  - Document Store
  - Graph Database
 
-Puedes escojer la tecnologia que quieras. La mayoría optó por trabajar con los datos de gobierno. Si eres una de las personas que no, por favor contacta al profesor para decidir sobre cuales datos vas a  trabajar.
+Puedes escojer la tecnología que quieras. La mayoría optó por trabajar con los datos del gobierno. Si eres una de las personas que no, por favor contacta al profesor para decidir sobre cuales datos vas a  trabajar.
 
-Documenta el proces en un documento RMarkdown, y despues usando la base de datos seleccionaste ejecuta los siguientes queries, dejando el código dentro del documento RMarkdown.
+Documenta el proceso en un documento RMarkdown, y despues usando la base de datos seleccionaste ejecuta los siguientes queries, dejando el código dentro del documento RMarkdown.
 
  - Una lista de la cantidad de entradas por nacionalidad
  - Para cada punto de entrada las 3 nacionalidades que entran y salen 
 
 ## Entrega
 
-Antes de entregar has un render (knit) de tu Rmarkdown. Entrega por favor el HTML y el .Rmd por tec digital.
+Antes de entregar has un render (knit) de tu Rmarkdown. Entrega por favor el HTML y el .Rmd por TEC digital.
 
 Si trabajas con los datos de gobierno tienes completa disponibilidad de
 
     https://movmigcr.ixpantia.com
 
 Para hacer incluir un repositorio propio dentro del proyecto para trabajar.
+
+```{r}
+library(feather)
+library(mongolite)
+library(dplyr)
+```
+
+
+```{r}
+path <- "mov_mig_cr.feather"
+df <- read_feather(path)
+
+migracion <- mongo(collection = "migracion", url = "mongodb://127.0.0.1:27017/?sockettimeoutms=1200000")
+
+migracion$drop()
+migracion$insert(df)
+migracion$count('{}')
+```
+
+### Ejecución de queries
+
+1. Lista de la cantidad de entradas por nacionalidad
+
+```{r}
+stats <- migracion_db$aggregate(
+  '[{
+        "$match":{
+           "DET_MOV_CICLO_MIGRATORIO":{
+              "$eq": "E"
+           }
+        }
+     },
+     {
+        "$group":{
+           "_id":"$NAC_ID",
+           "count":{
+              "$sum":1
+           }
+        }
+     }
+  ]',
+  options = '{"allowDiskUse":true}'
+)
+
+
+names(stats) <- c("Nacionalidad", "count")
+print(stats)
+```
+
+2. Para cada punto de entrada las 3 nacionalidades que entran y salen.
+
+```{r}
+entradas <- df %>%
+  group_by(PUE_ID_PUESTO_MIGRATORIO, NAC_ID) %>%
+  summarise(count = n())
+
+puntos_entrada <- entradas[order(-entradas$count), ]
+puntos_entrada <- by(puntos_entrada, puntos_entrada["PUE_ID_PUESTO_MIGRATORIO"], head, n = 2)
+puntos_entrada
+```
+
+> Segun hablamos con el profesor en la clase, debido a la forma de la base de datos de migración, la misma no se adapta a bases de datos no relacionales, de ahi la dificultad para encontrar los datos correctos con las consultas anteriores.
+
+

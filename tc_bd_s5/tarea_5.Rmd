@@ -1,0 +1,30 @@
+---
+title: "Tarea sesión 5"
+author: "Curso Big Data TEC"
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+
+**Estudiante:** Merian Herrera Fuentes <br>
+**Email:** meryann68@gmail.com <br>
+**Cédula:** 207180364 <br>
+**Fecha:** "2019/12/14"
+
+### Descripción de la tarea
+En la clase hablamos sobre definiciones de conceptos, y tratamos de desmenuzar terminos que están comunmente en uso, pero cuya definicion no siempre es tan clara.
+
+## Tarea
+
+Siguiendo el ejercicio que hicimos en grupos en clase (y puedes re-utilizar tus notas) por favor escribe un definicion en tus propias palabras para los siguiente conceptos. Donde aplica, o donde aclara la definicion indica la relación con los demás conceptos.
+
+ - **Business Intelligence:**
+ 
+ - **Lago de datos:** Un lago de datos es un repositorio centralizado donde se almacenan los datos crudos de una empresa, usualmente estas copias de datos son estructurados. Almacenar los datos de esta manera presenta ventajas como adaptabilidad, flexibilidad, excelente para el analisis de datos... sin embargo la privacidad de los mismos es usualmente un problema.
+ 
+ - **Ciencia de Datos:** 
+ - **Ingenieria de datos:** 
+ - **Big Data:** 
+ - **ROLAP:** 
+ - **ETL:** ETL (Extract, Transform, Load) es el proceso de extraer, transformar y almacenar datos extraidos de una fuente.
+ - **Inteligencia Artificial:** 

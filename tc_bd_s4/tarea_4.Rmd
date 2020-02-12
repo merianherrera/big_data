@@ -1,0 +1,85 @@
+---
+title: "Tarea Clase 4"
+author: "TEC San Carlos"
+date: "12/4/2019"
+output: html_document
+---
+
+**Estudiante:** Merian Herrera Fuentes <br>
+**Email:** meryann68@gmail.com <br>
+**Cédula:** 207180364 <br>
+**Fecha:** "2019/12/14"
+
+### Descripción de la tarea
+
+En la clase vimos varias alternativas locales para parelizar procesos. Hay bastantes blogposts sobre el tema, pero es un poco disperso lo que esta disponible. 
+
+El clasico es el paquete parallel, que tiene mucho años (de hecho es parte de base R). Pero hay varias implementaciones mas como:
+
+- [foreach](https://cran.r-project.org/web/packages/foreach/vignettes/foreach.pdf)
+- [future](https://cran.r-project.org/web/packages/future/)
+- [furrr](https://cran.r-project.org/web/packages/furrr/)
+
+Pero hay mas como puedes ver en el [CRAN Task View sobre HPC y Parallel computing](https://cran.r-project.org/web/views/HighPerformanceComputing.html)
+
+## Tarea
+
+La tarea consiste en que evidencies que pudiste correr un proceso en parallelo sobre los datos que usamos en la tarea pasada.
+
+Puedes usar cualquier paquete y cualquier transformacion sobre los datos. pero tienes que mostrar el tiempo de ejecucion sin paralellizacion y el tiempo con tu solucion paralella en el Rmarkdown (con su HTML) que entregas.
+
+```{r}
+library(nycflights13)
+library(dplyr)
+library(zoo)
+
+head(flights, 100)
+
+# lapply(flights,function(x) { length(which(is.na(x)))})
+
+# summary(flights)
+```
+
+
+```{r}
+library(purrr) 
+library(furrr)
+
+median = median(flights$arr_delay, na.rm = TRUE)
+
+fill.na <- function(element, new_value){
+  element[is.na(element)] <- new_value
+  element 
+}
+
+
+system.time({
+  map(flights$arr_delay, fill.na, median)
+})
+
+system.time({
+  
+  future_map(flights$arr_delay, fill.na, median)
+   
+})
+```
+
+
+## Segunda implementacion
+
+```{r}
+library(foreach)
+
+system.time({
+  
+  map(flights$arr_delay, fill.na, median)
+   
+})
+
+system.time({
+  
+  foreach(i = flights$arr_delay) %do% fill.na(i, median)
+   
+})
+```
+

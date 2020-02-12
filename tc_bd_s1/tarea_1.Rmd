@@ -9,7 +9,12 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Tarea 1
+**Estudiante:** Merian Herrera Fuentes <br>
+**Email:** meryann68@gmail.com <br>
+**Cédula:** 207180364 <br>
+**Fecha:** "2019/12/14"
+
+### Descripción de la tarea
 
 Escoje una de los proyectos / retos que llegaron a la lista que hicimos en clase. Ahora en mas detalle describe lo siquiente:
 
