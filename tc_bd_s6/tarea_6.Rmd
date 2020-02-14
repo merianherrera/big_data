@@ -11,13 +11,13 @@ editor_options:
 **Cédula:** 207180364 <br>
 **Fecha:** "2019/12/14"
 
-### Descripción tarea
+### Descripción de la tarea
 En la clase hablamos sobre como aplicar los metodos de estadistica a escala. Uno de los conceptos más dificiles para bajar a tierra fué "datos en movimiento" (**streaming data**). 
 
 El [vignette del paquete stream](https://cran.r-project.org/web/packages/stream/vignettes/stream.pdf) da una introducción a fondo e incluye ejemplos. 
 
 
-## Tarea
+## Entrega
 Como tarea, lee el vignette del paquete stream mencionado arriba. Y sique los ejemplos para validar que ejecutan. Si tienes tiempo puedes incluir algunos ejemplos mas que estan descritos por los autores.
 
 
@@ -31,8 +31,13 @@ p <- get_points(stream, n = 50)
 p
 ```
 
-> Pregunta: que significan los parametros k, d, noise, y p arriba? Para que los
-> puedes usar?
+> Pregunta: que significan los parametros k, d, noise, y p arriba? Para que los puedes usar?
+
+**k:** Numero de clusters
+**d:** Numero de dimensiones
+**noise:** Es un flag que determina si se agrega o no ruido.
+
+
 
 Ahora miramos los datos moviendose
 

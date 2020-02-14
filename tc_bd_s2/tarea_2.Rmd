@@ -54,7 +54,7 @@ migracion$insert(df)
 migracion$count('{}')
 ```
 
-### Ejecución de queries
+### Ejecución de los queries
 
 1. Lista de la cantidad de entradas por nacionalidad
 

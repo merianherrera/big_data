@@ -18,13 +18,20 @@ En la clase hablamos sobre definiciones de conceptos, y tratamos de desmenuzar t
 
 Siguiendo el ejercicio que hicimos en grupos en clase (y puedes re-utilizar tus notas) por favor escribe un definicion en tus propias palabras para los siguiente conceptos. Donde aplica, o donde aclara la definicion indica la relación con los demás conceptos.
 
- - **Business Intelligence:**
+ - **Business Intelligence:** Bussiness Intelligence es un area de estudio que nos ayuda a convertir los datos en informacion util para un negocio. Esto lo hace de la mano de herramientas como ciencias de los datos, estadistica...
  
  - **Lago de datos:** Un lago de datos es un repositorio centralizado donde se almacenan los datos crudos de una empresa, usualmente estas copias de datos son estructurados. Almacenar los datos de esta manera presenta ventajas como adaptabilidad, flexibilidad, excelente para el analisis de datos... sin embargo la privacidad de los mismos es usualmente un problema.
  
- - **Ciencia de Datos:** 
- - **Ingenieria de datos:** 
- - **Big Data:** 
- - **ROLAP:** 
+ - **Ciencia de Datos:** Las ciencias de los datos es un campo dentro del bussiness inteligence que utiliza herramientas como la estadistica, calculo, machine learning... para predecir y sacar informacion de un set de datos.
+ 
+ - **Ingenieria de datos:** Ingenieria de datos es el area de la ingenieria que se encarga de preparar los datos para que los mismos puedan ser analizados con las diferentes herramientas que existen. Esta area esta tambien dentro de bussiness intelligence.
+ 
+ - **Big Data:** ESte termino nace a partir de las grandes cantidades de informacion que se producen diariamente, desde mi punto de vista se puede considerar la informacion como big data desde que la capacidad computacional con la que contamos no es suficiente para procesarla.
+ 
+ - **ROLAP:** ROLAP es el Procesamiento Analitico Online Relacional en una base de datos relacional. 
+ 
  - **ETL:** ETL (Extract, Transform, Load) es el proceso de extraer, transformar y almacenar datos extraidos de una fuente.
- - **Inteligencia Artificial:** 
+ 
+ - **Inteligencia Artificial:** Desde mi punto de vista la inteligencia artificial es el proceso donde las maquinas comienzan a tomar decisiones ya sean programadas o "aprendidas". Tambien se puede ver como el proceso de dotar de caracteristicas propias de seres vivos a las maquinas.
+ 
+ 
