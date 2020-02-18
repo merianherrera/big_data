@@ -37,7 +37,7 @@ p
 **d:** Numero de dimensiones
 **noise:** Es un flag que determina si se agrega o no ruido.
 
-
+Los podemos utilizar para configurar el output de la funcion `DSD_Gaussians`, podemos crear una combinacion de `k` clusters con `d` dimensiones cada uno.
 
 Ahora miramos los datos moviendose
 
@@ -60,9 +60,7 @@ animation::ani.options(interval = .1)
 ani.replay()
 ```
 
-> Pregunta: Si piensas en cual es el promedio de X2 la respuesta va ser "depende 
-> de cuando miras, y de cuanta historia incluyes". Discute como esto impacta tu 
-> analisis y cuales soluciones le propondrias a un cliente.
+> Pregunta: Si piensas en cual es el promedio de X2 la respuesta va ser "depende de cuando miras, y de cuanta historia incluyes". Discute como esto impacta tu analisis y cuales soluciones le propondrias a un cliente.
 
-
+Al trabajar con datos en movimiento, vamos a tener un alto volumen de datos que nos estan entrando en `x` cantidad de tiempo, la respuesta a ese promedio es depende porque literalmente si calculamos un promedio con la cantidad de datos que tenemos y luego al segundo despues nos llegan mas datos ese promedio va a cambiar, de la discusion que tuvimos en clase con respecto a esta pregunta, llegamos al acuerdo que la mejor manera es definir limites donde podemos encontrar el promedio de los datos, con esta tecnica podemos dar un promedio aproximado al real no importa cuantos datos nuevos estemos recibiendo.
 
