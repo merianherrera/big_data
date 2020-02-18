@@ -1,14 +1,17 @@
 ---
-title: "Tarea 6"
+title: "Tarea sesión 7"
 author: "Curso Big Data TEC"
 output: html_document
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 
-## Tarea sesión 7
+**Estudiante:** Merian Herrera Fuentes <br>
+**Email:** meryann68@gmail.com <br>
+**Cédula:** 207180364 <br>
+**Fecha:** "2019/12/14"
 
-### Descripción tarea
+### Descripción de la tarea
 En la clase hablamos sobre como aplicar los metodos de machine learning a escala. Ya conocemos varios *frameworks* para hacerlo, y hemos visto que en R tenemos interfaces a ellas que nos faciliten usarlos al analisar nuestros datos. 
 
 
@@ -19,10 +22,24 @@ Para poner en practica lo que vimos en teoria en la Sesion 7, en este ejercicio 
 En este ejercicio tienes mucha libertad para ejecutarlo de la forma que te parece mejor. La clave es que el codigo corra contra los datos que estan en `nycflights13` y que entregues el html que resulta de tu Rmd con tu resultado. Como siempre generas este html apretando "knit" arriba. Si hay un error, resuelvelo antes de entregra la tarea.
 
 ```{r}
+library(sparklyr)
+library(dplyr)
 library(nycflights13)
 
-# aqui tu codigo para aplicar uno de los metodos de machine learning disponibles
-# en MLLib a los datos
+sc <- spark_connect(master = "local")
+
+vuelos_tbl <- copy_to(sc, nycflights13::flights, "flights", overwrite = TRUE)
+
+# DEPARTURE DELAY FILTER
+flights_tbl %>% filter(dep_delay == 2)
+
+data_partitions <- vuelos_tbl %>%
+  filter(dep_delay >= 2) %>%
+  # mutate(cyl8 = cyl == 8) %>%
+  sdf_partition(training = 0.7, test = 0.3, seed = 1212)
+
+fit <- data_partitions$training %>%
+  ml_linear_regression(response = "arr_delay", features = c("dep_delay", "air_time"))
 
 ```
 
