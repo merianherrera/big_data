@@ -27,19 +27,27 @@ library(dplyr)
 library(nycflights13)
 
 sc <- spark_connect(master = "local")
+```
 
+
+```{r}
 vuelos_tbl <- copy_to(sc, nycflights13::flights, "flights", overwrite = TRUE)
 
 # DEPARTURE DELAY FILTER
-flights_tbl %>% filter(dep_delay == 2)
+vuelos_tbl %>% filter(dep_delay == 2)
 
 data_partitions <- vuelos_tbl %>%
   filter(dep_delay >= 2) %>%
   # mutate(cyl8 = cyl == 8) %>%
   sdf_partition(training = 0.7, test = 0.3, seed = 1212)
 
+vuelos_tbl <- spark_dataframe(vuelos_tbl) %>% invoke("drop", "any") %>% collect()
+
+```
+
+
+```{r}
 fit <- data_partitions$training %>%
   ml_linear_regression(response = "arr_delay", features = c("dep_delay", "air_time"))
-
 ```
 
